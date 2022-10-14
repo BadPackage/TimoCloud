@@ -90,7 +90,7 @@ public class ServerGroupDefaultPropertiesProviderImplementation implements Serve
     }
 
     @Override
-    public boolean isAlwaysCopyPlugins() {
+    public boolean isAlwaysCopyTemplate() {
         return false;
     }
 }

@@ -73,8 +73,8 @@ public class APIRequestManager implements MessageListener {
                             int timeout = serverGroupProperties.getTimeout();
                             validateNotNull(timeout, "timeout");
 
-                            boolean alwaysCopyPlugins = serverGroupProperties.isAlwaysCopyPlugins();
-                            validateNotNull(alwaysCopyPlugins);
+                            boolean alwaysCopyTemplate = serverGroupProperties.isAlwaysCopyTemplate();
+                            validateNotNull(alwaysCopyTemplate);
 
                             if (TimoCloudCore.getInstance().getInstanceManager().getGroupByName(name) != null) {
                                 throw new APIRequestError("A group with this name already exists", 12, Arrays.asList(name));
@@ -94,7 +94,7 @@ public class APIRequestManager implements MessageListener {
                                     spigotParameters,
                                     jrePath,
                                     timeout,
-                                    alwaysCopyPlugins
+                                    alwaysCopyTemplate
                             );
 
                             TimoCloudCore.getInstance().getInstanceManager().createGroup(serverGroup);

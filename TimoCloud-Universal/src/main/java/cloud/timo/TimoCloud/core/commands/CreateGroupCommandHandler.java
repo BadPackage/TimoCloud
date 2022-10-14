@@ -15,7 +15,7 @@ public class CreateGroupCommandHandler extends CommandFormatUtil implements Comm
     @Override
     public void onCommand(String command, CommandSender sender, String... args) {
         if (args.length < 4) {
-            notEnoughArgs(sender, "addgroup <groupType (String)> <groupName (String)> <onlineAmount (int), only needed for server groups> <ram (int)> <static (boolean)> <base (String), only needed if static=true>, <alwaysCopyPlugins (boolean)>");
+            notEnoughArgs(sender, "addgroup <groupType (String)> <groupName (String)> <onlineAmount (int), only needed for server groups> <ram (int)> <static (boolean)> <base (String), only needed if static=true>, <alwaysCopyTemplate (boolean)>");
             return;
         }
         String type = args[0];
@@ -44,7 +44,7 @@ public class CreateGroupCommandHandler extends CommandFormatUtil implements Comm
                 return;
             }
 
-            if (args.length > 6) properties.setAlwaysCopyPlugins(Boolean.parseBoolean(args[6]));
+            if (args.length > 6) properties.setAlwaysCopyTemplate(Boolean.parseBoolean(args[6]));
 
             ServerGroup serverGroup = new ServerGroup(properties);
             TimoCloudCore.getInstance().getInstanceManager().createGroup(serverGroup);

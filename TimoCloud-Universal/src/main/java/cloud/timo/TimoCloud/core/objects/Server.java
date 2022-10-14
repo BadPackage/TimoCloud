@@ -104,7 +104,7 @@ public class Server implements Instance, Communicatable {
                     .set("javaParameters", getGroup().getJavaParameters())
                     .set("jrePath", getGroup().getJrePath())
                     .set("timeout", getGroup().getTimeout())
-                    .set("alwaysCopyPlugins", getGroup().isAlwaysCopyPlugins());
+                    .set("alwaysCopyTemplate", getGroup().isAlwaysCopyTemplate());
             if (!getGroup().isStatic()) {
                 File templateDirectory = new File(TimoCloudCore.getInstance().getFileManager().getServerTemplatesDirectory(), getGroup().getName());
                 File mapDirectory = new File(TimoCloudCore.getInstance().getFileManager().getServerTemplatesDirectory(), getGroup().getName() + "_" + getMap());

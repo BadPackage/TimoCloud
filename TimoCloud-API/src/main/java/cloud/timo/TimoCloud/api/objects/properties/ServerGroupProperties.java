@@ -20,7 +20,7 @@ public class ServerGroupProperties {
     private List<String> spigotParameters;
     private String jrePath;
     private int timeout;
-    private boolean alwaysCopyPlugins;
+    private boolean alwaysCopyTemplate;
 
     public ServerGroupProperties(String id, String name) {
         this.id = id;
@@ -36,7 +36,7 @@ public class ServerGroupProperties {
         this.spigotParameters = getDefaultPropertiesProvider().getSpigotParameters();
         this.jrePath = getDefaultPropertiesProvider().getJrePath();
         this.timeout = getDefaultPropertiesProvider().getTimeout();
-        this.alwaysCopyPlugins = getDefaultPropertiesProvider().isAlwaysCopyPlugins();
+        this.alwaysCopyTemplate = getDefaultPropertiesProvider().isAlwaysCopyTemplate();
     }
 
     public ServerGroupProperties(String name) {
@@ -150,12 +150,12 @@ public class ServerGroupProperties {
         return this;
     }
 
-    public boolean isAlwaysCopyPlugins() {
-        return alwaysCopyPlugins;
+    public boolean isAlwaysCopyTemplate() {
+        return alwaysCopyTemplate;
     }
 
-    public void setAlwaysCopyPlugins(boolean alwaysCopyPlugins) {
-        this.alwaysCopyPlugins = alwaysCopyPlugins;
+    public void setAlwaysCopyTemplate(boolean alwaysCopyTemplate) {
+        this.alwaysCopyTemplate = alwaysCopyTemplate;
     }
 
     public ServerGroupProperties setJrePath(String jrePath) {
@@ -197,7 +197,7 @@ public class ServerGroupProperties {
 
         int getTimeout();
 
-        boolean isAlwaysCopyPlugins();
+        boolean isAlwaysCopyTemplate();
 
     }
 }

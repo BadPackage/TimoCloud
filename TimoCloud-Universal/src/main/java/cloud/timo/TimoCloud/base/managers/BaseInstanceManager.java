@@ -184,7 +184,7 @@ public class BaseInstanceManager {
             List<String> mapDifferences = (!server.isStatic() && server.getMapHash() != null) ? HashUtil.getDifferentFiles("", server.getMapHash(), mapHashes) : new ArrayList<>();
             List<String> globalDifferences = HashUtil.getDifferentFiles("", server.getGlobalHash(), globalHashes);
 
-            if (templateDifferences.size() > 0 || mapDifferences.size() > 0 || globalDifferences.size() > 0 || server.isAlwaysCopyPlugins()) {
+            if (templateDifferences.size() > 0 || mapDifferences.size() > 0 || globalDifferences.size() > 0 || server.isAlwaysCopyTemplate()) {
                 TimoCloudBase.getInstance().info("New server template updates found! Stopping and downloading updates...");
                 TimoCloudBase.getInstance().getSocketMessageManager().sendMessage(Message.create()
                         .setType(MessageType.BASE_SERVER_TEMPLATE_REQUEST)

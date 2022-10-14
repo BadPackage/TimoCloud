@@ -62,8 +62,8 @@ public class BaseStringHandler extends BasicStringHandler {
                 List<String> spigotParameters = (List<String>) message.get("spigotParameters");
                 String jrePath = (String) message.get("jrePath");
                 int timeout = ((Number) message.get("timeout")).intValue();
-                boolean alwaysCopyPlugins = (boolean) message.get("alwaysCopyPlugins");
-                TimoCloudBase.getInstance().getInstanceManager().addToServerQueue(new BaseServerObject(serverName, id, ram, isStatic, map, group, templateHash, mapHash, globalHash, javaParameters, spigotParameters, jrePath, timeout, alwaysCopyPlugins));
+                boolean alwaysCopyTemplate = (boolean) message.get("alwaysCopyTemplate");
+                TimoCloudBase.getInstance().getInstanceManager().addToServerQueue(new BaseServerObject(serverName, id, ram, isStatic, map, group, templateHash, mapHash, globalHash, javaParameters, spigotParameters, jrePath, timeout, alwaysCopyTemplate));
                 TimoCloudBase.getInstance().info("Added server " + serverName + " to queue.");
                 break;
             }

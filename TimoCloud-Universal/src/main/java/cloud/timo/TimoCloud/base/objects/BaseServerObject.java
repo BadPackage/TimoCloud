@@ -17,9 +17,9 @@ public class BaseServerObject {
     private List<String> spigotParameters;
     private String jrePath;
     private int timeout;
-    private boolean alwaysCopyPlugins;
+    private boolean alwaysCopyTemplate;
 
-    public BaseServerObject(String name, String id, int ram, boolean isStatic, String map, String group, Map<String, Object> templateHash, Map<String, Object> mapHash, Map<String, Object> globalHash, List<String> javaParameters, List<String> spigotParameters, String jrePath, int timeout, boolean alwaysCopyPlugins) {
+    public BaseServerObject(String name, String id, int ram, boolean isStatic, String map, String group, Map<String, Object> templateHash, Map<String, Object> mapHash, Map<String, Object> globalHash, List<String> javaParameters, List<String> spigotParameters, String jrePath, int timeout, boolean alwaysCopyTemplate) {
         this.name = name;
         this.id = id;
         this.group = group;
@@ -33,7 +33,7 @@ public class BaseServerObject {
         this.spigotParameters = spigotParameters;
         this.jrePath = jrePath;
         this.timeout = timeout;
-        this.alwaysCopyPlugins = alwaysCopyPlugins;
+        this.alwaysCopyTemplate = alwaysCopyTemplate;
     }
 
     public String getName() {
@@ -88,8 +88,8 @@ public class BaseServerObject {
         return timeout;
     }
 
-    public boolean isAlwaysCopyPlugins() {
-        return alwaysCopyPlugins;
+    public boolean isAlwaysCopyTemplate() {
+        return alwaysCopyTemplate;
     }
 
 }
