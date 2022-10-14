@@ -27,6 +27,7 @@ public class ServerGroup implements Group {
     private List<String> spigotParameters;
     private String jrePath;
     private int timeout;
+    private boolean alwaysCopyPlugins;
 
     private Map<String, Server> servers = new HashMap<>();
 
@@ -38,8 +39,8 @@ public class ServerGroup implements Group {
         construct(properties);
     }
 
-    public ServerGroup(String id, String name, int onlineAmount, int maxAmount, int ram, boolean isStatic, int priority, String baseName, Collection<String> sortOutStates, List<String> javaParameters, List<String> spigotParameters, String jdkPath, int timeout) {
-        construct(id, name, onlineAmount, maxAmount, ram, isStatic, priority, baseName, sortOutStates, javaParameters, spigotParameters, jdkPath, timeout);
+    public ServerGroup(String id, String name, int onlineAmount, int maxAmount, int ram, boolean isStatic, int priority, String baseName, Collection<String> sortOutStates, List<String> javaParameters, List<String> spigotParameters, String jdkPath, int timeout, boolean alwaysCopyPlugins) {
+        construct(id, name, onlineAmount, maxAmount, ram, isStatic, priority, baseName, sortOutStates, javaParameters, spigotParameters, jdkPath, timeout, alwaysCopyPlugins);
     }
 
     public void construct(Map<String, Object> properties) {
@@ -59,7 +60,8 @@ public class ServerGroup implements Group {
                     (List<String>) properties.getOrDefault("javaParameters", defaultProperties.getJavaParameters()),
                     (List<String>) properties.getOrDefault("spigotParameters", defaultProperties.getSpigotParameters()),
                     ((String) properties.getOrDefault("jrePath", defaultProperties.getJrePath())),
-                    ((Number) properties.getOrDefault("timeout", defaultProperties.getTimeout())).intValue());
+                    ((Number) properties.getOrDefault("timeout", defaultProperties.getTimeout())).intValue(),
+                    (Boolean) properties.getOrDefault("alwaysCopyPlugins", defaultProperties.isAlwaysCopyPlugins()));
         } catch (Exception e) {
             TimoCloudCore.getInstance().severe("Error while loading server group '" + properties.get("name") + "':");
             e.printStackTrace();
@@ -80,14 +82,23 @@ public class ServerGroup implements Group {
         properties.put("spigotParameters", getSpigotParameters());
         properties.put("jrePath", getJrePath());
         properties.put("timeout", getTimeout());
+        properties.put("alwaysCopyPlugins", isAlwaysCopyPlugins());
         return properties;
     }
 
     public void construct(ServerGroupProperties properties) {
-        construct(properties.getId(), properties.getName(), properties.getOnlineAmount(), properties.getMaxAmount(), properties.getRam(), properties.isStatic(), properties.getPriority(), properties.getBaseIdentifier(), properties.getSortOutStates(), properties.getJavaParameters(), properties.getSpigotParameters(), properties.getJrePath(), properties.getTimeout());
+        construct(properties.getId(), properties.getName(), properties.getOnlineAmount(), properties.getMaxAmount(), properties.getRam(), properties.isStatic(), properties.getPriority(), properties.getBaseIdentifier(), properties.getSortOutStates(), properties.getJavaParameters(), properties.getSpigotParameters(), properties.getJrePath(), properties.getTimeout(), properties.isAlwaysCopyPlugins());
     }
 
-    public void construct(String id, String name, int onlineAmount, int maxAmount, int ram, boolean isStatic, int priority, String baseIdentifier, Collection<String> sortOutStates, List<String> javaParameters, List<String> spigotParameters, String jrePath, int timeout) {
+    public boolean isAlwaysCopyPlugins() {
+        return alwaysCopyPlugins;
+    }
+
+    public void setAlwaysCopyPlugins(boolean alwaysCopyPlugins) {
+        this.alwaysCopyPlugins = alwaysCopyPlugins;
+    }
+
+    public void construct(String id, String name, int onlineAmount, int maxAmount, int ram, boolean isStatic, int priority, String baseIdentifier, Collection<String> sortOutStates, List<String> javaParameters, List<String> spigotParameters, String jrePath, int timeout, boolean alwaysCopyPlugins) {
         if (isStatic() && onlineAmount > 1) {
             TimoCloudCore.getInstance().severe("Static groups (" + name + ") can only have 1 server. Please set 'onlineAmount' to 1");
             onlineAmount = 1;
@@ -109,6 +120,7 @@ public class ServerGroup implements Group {
         if (isStatic() && getBase() == null) {
             TimoCloudCore.getInstance().severe("Static server group " + getName() + " has no base specified. Please specify a base name in order to enable starting of servers.");
         }
+        this.alwaysCopyPlugins = alwaysCopyPlugins;
     }
 
     @Override

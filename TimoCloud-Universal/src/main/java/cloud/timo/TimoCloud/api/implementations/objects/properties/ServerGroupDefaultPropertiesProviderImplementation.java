@@ -88,4 +88,9 @@ public class ServerGroupDefaultPropertiesProviderImplementation implements Serve
     public int getTimeout() {
         return 1000*60*3;
     }
+
+    @Override
+    public boolean isAlwaysCopyPlugins() {
+        return false;
+    }
 }

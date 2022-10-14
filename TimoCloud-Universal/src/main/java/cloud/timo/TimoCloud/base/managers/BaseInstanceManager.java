@@ -184,7 +184,7 @@ public class BaseInstanceManager {
             List<String> mapDifferences = (!server.isStatic() && server.getMapHash() != null) ? HashUtil.getDifferentFiles("", server.getMapHash(), mapHashes) : new ArrayList<>();
             List<String> globalDifferences = HashUtil.getDifferentFiles("", server.getGlobalHash(), globalHashes);
 
-            if (templateDifferences.size() > 0 || mapDifferences.size() > 0 || globalDifferences.size() > 0) {
+            if (templateDifferences.size() > 0 || mapDifferences.size() > 0 || globalDifferences.size() > 0 || server.isAlwaysCopyPlugins()) {
                 TimoCloudBase.getInstance().info("New server template updates found! Stopping and downloading updates...");
                 TimoCloudBase.getInstance().getSocketMessageManager().sendMessage(Message.create()
                         .setType(MessageType.BASE_SERVER_TEMPLATE_REQUEST)
@@ -220,11 +220,12 @@ public class BaseInstanceManager {
             }
 
             File spigotJar = new File(temporaryDirectory, "spigot.jar");
-            if (!spigotJar.exists()) {
+            File paperJar = new File(temporaryDirectory, "paper.jar");
+            if (!spigotJar.exists() && !paperJar.exists()) {
                 TimoCloudBase.getInstance().severe("Could not start server " + server.getName() + " because spigot.jar does not exist. " + (
                         server.isStatic() ? "Please make sure the file " + spigotJar.getAbsolutePath() + " exists (case sensitive!)."
-                                : "Please make sure to have a file called 'spigot.jar' in your template."));
-                throw new ServerStartException("spigot.jar does not exist");
+                                : "Please make sure to have a file called 'spigot.jar' or 'paper.jar' in your template."));
+                throw new ServerStartException("spigot.jar or paper.jar does not exist");
             }
 
             File plugins = new File(temporaryDirectory, "/plugins/");
